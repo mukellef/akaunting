@@ -5,7 +5,7 @@
   class="fixed w-full lg:w-4/5 h-screen flex items-center justify-center bg-body top-0 bottom-0 ltr:right-0 rtl:left-0 -mx-1 z-50"
   style="z-index: 60;"
 >
-<div class="w-4/5">
+<div class="lg:w-4/5 w-full">
   <Lottie />
 </div>
 
