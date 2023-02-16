@@ -79,7 +79,7 @@
                 <button type="button"
                     :disabled="bulk_action.loading"
                     @click="onActionBulkAction"
-                    class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-100 transition duration-150 ease-in-out rounded-full"
+                    class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-300 transition duration-150 ease-in-out rounded-full"
                 >
                     <i v-if="bulk_action.loading" class="submit-spin absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto"></i>
                     <span :class="[{'opacity-0': bulk_action.loading}]">{{ trans('general.confirm') }}</span>

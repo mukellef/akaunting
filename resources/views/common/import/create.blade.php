@@ -43,7 +43,7 @@
 
                         <x-button
                             type="submit"
-                            class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-100 transition duration-150 ease-in-out rounded-full"
+                            class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-300 transition duration-150 ease-in-out rounded-full"
                             ::disabled="form.loading"
                             override="class"
                         >

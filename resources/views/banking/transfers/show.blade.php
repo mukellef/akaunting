@@ -40,7 +40,7 @@
                         {{ trans('general.cancel') }}
                     </button>
 
-                    <button :disabled="form.loading" type="button" class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-100 transition duration-150 ease-in-out rounded-full" @click="addTemplate">
+                    <button :disabled="form.loading" type="button" class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-300 transition duration-150 ease-in-out rounded-full" @click="addTemplate">
                         <x-button.loading>
                             {{ trans('general.confirm') }}
                         </x-button.loading>
