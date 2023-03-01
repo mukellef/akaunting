@@ -5,7 +5,7 @@
 
     <x-slot name="content">
         <div>
-            <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16" alt="Akaunting" />
+            <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16" alt="Workhy Books" />
 
             <h1 class="text-lg my-3">
                 {{ trans('auth.reset_password') }}
@@ -37,7 +37,7 @@
                 <x-button
                     type="submit"
                     ::disabled="form.loading"
-                    class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100 sm:col-span-6"
+                    class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-300 sm:col-span-6 transition duration-150 ease-in-out rounded-full"
                     override="class"
                     data-loading-text="{{ trans('general.loading') }}"
                 >
