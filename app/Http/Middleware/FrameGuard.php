@@ -20,9 +20,9 @@ class FrameGuard
         $response = $next($request);
 
         if ($response instanceof StreamedResponse) {
-            $response->headers->set('Content-Security-Policy', 'frame-ancestors'. Config::get('workhy.panel_url'));
+            $response->headers->set('Content-Security-Policy', 'frame-ancestors '. Config::get('workhy.panel_url'));
         }else {
-            $response->header('Content-Security-Policy', 'frame-ancestors'. Config::get('workhy.panel_url'));
+            $response->header('Content-Security-Policy', 'frame-ancestors '. Config::get('workhy.panel_url'));
         }
 
         return $response;
