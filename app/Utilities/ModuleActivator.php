@@ -140,20 +140,17 @@ class ModuleActivator implements ActivatorInterface
 
         $this->company_id = $company_id;
 
-        $modules = Model::companyId($this->company_id)->pluck('enabled', 'alias')->toArray();
+        $enabledModules = getenv('ENABLED_MODULES');
 
-        foreach ($modules as $alias => $enabled) {
-            if (in_array($alias, ['offline-payments', 'paypal-standard'])) {
-                continue;
-            }
+        if (empty($enabledModules)) {
+            return [];
+        }
 
-            $subscription = $this->getSubscription($alias);
+        $modules = [];
+        $enabledModules = explode(',', $enabledModules);
 
-            if (! is_object($subscription)) {
-                continue;
-            }
-
-            $modules[$alias] = $subscription->status;
+        foreach ($enabledModules as $alias) {
+            $modules[$alias] = true;
         }
 
         return $modules;
