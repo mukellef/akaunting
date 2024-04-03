@@ -1,0 +1,46 @@
+version: '3'
+services:
+  nginx:
+    build: ./.docker/nginx
+    ports:
+     - ${DOCKER_NGINX_PORT}:80
+    volumes:
+      - ./:/var/www/workhy-books
+      - ./.docker/nginx/config.conf:/etc/nginx/nginx.conf
+    networks:
+      appnet:
+        aliases:
+         - apistartup
+    restart: unless-stopped
+  php:
+    build: ./.docker/php
+    volumes:
+     - ./:/var/www/workhy-books:delegated
+    networks:
+     - appnet
+    restart: unless-stopped
+  redis:
+    image: redis:alpine
+    networks:
+     - appnet
+    restart: unless-stopped
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DOCKER_MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+     - data:/var/lib/mysql
+     - ./database/dump:/dump
+    networks:
+     - appnet
+    ports:
+      - ${DB_PORT}:3306
+networks:
+  appnet:
+    driver: "bridge"
+volumes:
+  data:
+    driver: "local"
