@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Config;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Auth\Events\Logout as Event;
+use Modules\WbProxy\Models\Auth\User;
 
 class WorkhyAuthLogout
 {
@@ -31,9 +32,18 @@ class WorkhyAuthLogout
 
             $token = $encrypter->decrypt($this->session->get($key));
 
-            PersonalAccessToken::findToken($token)?->delete();
+            $personalAccessToken = PersonalAccessToken::findToken($token);
 
-            $this->session->forget($key);
+
+            if($personalAccessToken && $this->isWorkhyToken($personalAccessToken)) {
+                $personalAccessToken->delete();
+                $this->session->forget($key);
+            }
         }
+    }
+
+    private function isWorkhyToken($personalAccessToken)
+    {
+        return $personalAccessToken->name === User::WORKHY_TOKEN;
     }
 }

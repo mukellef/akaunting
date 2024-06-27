@@ -1,0 +1,51 @@
+version: 2.1
+jobs:
+  build:
+    machine:
+      enabled: true
+    steps:
+      - checkout
+      - run:
+          name: "Create Environment file"
+          command: |
+            cp .env.example .env
+      - run:
+          name: Build docker-compose containers
+          command: |
+            docker-compose build
+      - run:
+          name: Up containers
+          command: docker-compose up -d
+      - run:
+          name: Migrate php
+          command: docker-compose exec php bash -c  "composer install && php artisan migrate && php artisan module:seed wb-override"
+      - run:
+          name: Install npm
+          command: docker-compose exec php bash -c  "npm install && npm run prod"
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy via SSH to Staging
+          command: ssh -t $SSH_USER@$SSH_STAGE_HOST "cd /var/www/workhy-books && sudo git pull && sudo git submodule update --remote --recursive && sh deploy.sh"
+  production_deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy via SSH to Production
+          command: ssh -t $SSH_USER@$SSH_HOST "cd /var/www/workhy-books && sudo git pull && sudo git submodule update --remote --recursive && sh deploy.sh"
+workflows:
+  version: 2
+  build_and_test_deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+      - production_deploy:
+          filters:
+            branches:
+              only: production
