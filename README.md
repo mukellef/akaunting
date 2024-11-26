@@ -14,7 +14,7 @@ Online accounting software designed for small businesses and freelancers. Akaunt
 * [App Store](https://akaunting.com/apps) - Extend your Akaunting
 * [Translations](https://crowdin.com/project/akaunting) - Help us translate Akaunting
 
-## Requirements
+## Requirements...
 
 * PHP 8.1 or higher
 * Database (e.g.: MySQL, PostgreSQL, SQLite)
